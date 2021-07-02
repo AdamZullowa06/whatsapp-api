@@ -1,0 +1,33 @@
+{
+  "name": "whatsapp-api",
+  "version": "1.0.0",
+  "description": "Whatsapp-api powered by Adam Zullowa",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdamZullowa06/whatsapp-api.git"
+  },
+  "keywords": [
+    "whatsapp-api",
+    "whatsapp-web.js",
+    "node.js",
+    "tutorial"
+  ],
+  "author": "Adam Zullowa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AdamZullowa06/whatsapp-api/issues"
+  },
+  "homepage": "https://github.com/AdamZullowa06/whatsapp-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
+    "qrcode": "^1.4.4",
+    "socket.io": "^4.1.2",
+    "whatsapp-web.js": "^1.12.6"
+  }
+}

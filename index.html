@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whatsapp API</title>
+</head>
+<style>
+    body {
+        margin: auto;
+        width: 50%;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <h1>Whatsapp API</h1>
+        <p>Powered by Adam Zullowa</p>
+        <img src="" alt="" id="qrcode">
+        <h3>Logs :</h3>
+        <ul class="logs"></ul>
+    </div>
+</body>
+<footer>
+    Copyright &copy;
+    <script>document.write(new Date().getFullYear());</script> Adam Zullowa
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.min.js"
+    integrity="sha512-2ho+gY0H62N4Z9oxD422L2ZYXiOMq9l+Aub1QNz4Z4UDOtDVxz4vk6O6R3Hqqc9Y7qSvZFl7cy3+eZ/ITnUrLA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function () {
+        var socket = io.connect('http://localhost:8000', { path: '/socket.io' });
+
+        socket.on('message', function (msg) {
+            $('.logs').append($('<li>').text(msg));
+        });
+
+        socket.on('qr', function (src) {
+            $('#qrcode').attr('src', src);
+        });
+
+        socket.on('ready', function (src) {
+            $('#qrcode').hide();
+        });
+
+        socket.on('authenticated', function (src) {
+            $('#qrcode').hide();
+        })
+    });
+</script>
+
+</html>

@@ -1,26 +1,26 @@
 # whatsapp-api
 
-implementasi dari whatsapp-web.js
+implementation of whatsapp-web.js
 
-### Instalasi
+### Instalation
 
-- Clone atau download repository
-- Masuk ke dalam project directory
-- Jalankan `npm install`
-- Jalankan `npm run start:dev`
-- Buka browser dan jalankan alamat `http://localhost:8000`
-- Scan kode whatsapp api dengan handphone
-- Selamat menggunakan program ini!
+- Clone or download repository
+- Get into project directory
+- Run `npm install`
+- Run `npm run start`
+- Open browser and go to `http://localhost:8000`
+- Scan the QR Code
+- Enjoy!
 
-### Mengirim Pesan
+### Send Message
 
-mengirim pesan/chat menggunakan parameter `number` dan `message`, ini endpointnya `/send-message`.
+Send Message/Chat by using parameter `number` & `message`, here the endpoint: `/send-message`.
 
 **Parameter:**
 
-- `number` : nomor (gunakan international code) dan tambahkan `@c.us`.
-- `message` : isi pesan
+- `number` : (using international code) then add `@c.us` \*example: 6288444579135@c.us
+- `message` : the message
 
-## Kontak Saya
+## Touch Me
 
-kamu bisa melihat aplikasi/program yang saya telah buat di website <a href="https://adamzullowa06.github.io/">Adam Zullowa</a>. Terima kasih.
+You can see other apps/programs that i have made on <a href="https://adamzullowa06.github.io/">Adam Zullowa</a>, Thanks.

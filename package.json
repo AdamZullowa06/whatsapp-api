@@ -25,6 +25,7 @@
   "homepage": "https://github.com/AdamZullowa06/whatsapp-api#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-validator": "^6.12.0",
     "http": "0.0.1-security",
     "qrcode": "^1.4.4",
     "socket.io": "^4.1.2",

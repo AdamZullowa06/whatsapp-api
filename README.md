@@ -18,7 +18,7 @@ Send Message/Chat by using parameter `number` & `message`, here the endpoint: `/
 
 **Parameter:**
 
-- `number` : (using international code) then add `@c.us` \*example: 6288444579135@c.us
+- `number` : please change the international code format according to the country of origin in `./helpers/formatter.js`
 - `message` : the message
 
 ## Touch Me

@@ -1,9 +1,11 @@
 const { Client } = require('whatsapp-web.js');
 const express = require('express');
 const qrcode = require('qrcode');
+const {body, validationResult} = require('express-validator');
 const socketIO = require("socket.io");
 const http = require("http");
 const fs = require('fs');
+const {phoneNumberFormatter} = require('./helpers/formatter');
 
 const app = express();
 const server = http.createServer(app);
@@ -18,7 +20,22 @@ if (fs.existsSync(SESSION_FILE_PATH)) {
     sessionCfg = require(SESSION_FILE_PATH);
 }
 
-const client = new Client({ puppeteer: { headless: true }, session: sessionCfg });
+const client = new Client({ 
+    puppeteer: { 
+        headless: true,
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-accelerated-2d-canvas',
+            '--no-first-run',
+            '--no-zygote',
+            '--single-process', // <- this one doesn't works in Windows
+            '--disable-gpu'
+        ]
+    }, 
+    session: sessionCfg 
+});
 
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: __dirname });
@@ -61,9 +78,37 @@ io.on('connection', function (socket) {
     });
 });
 
-app.post('/send-message', (req, res) => {
-    const number = req.body.number;
+const checkRegisteredNumber = async function(number) {
+    const isRegistered = await client.isRegisteredUser(number);
+    return isRegistered;
+}
+
+// Send message
+app.post('/send-message', [
+    body('number').notEmpty(),
+    body('message').notEmpty(),
+], async (req, res) => {
+    const errors = validationResult(req).formatWith(({msg}) => {
+        return msg;
+    });
+
+    if(!errors.isEmpty()) {
+        return res.status(422).json({
+            status: false,
+            message: errors.mapped()
+        })
+    }
+    const number = phoneNumberFormatter(req.body.number);
     const message = req.body.message;
+
+    const isRegisteredNumber = await checkRegisteredNumber(number);
+
+    if(!isRegisteredNumber) {
+        return res.status(422).json({
+            status: false,
+            message: 'The number is not registered'
+        });
+    }
 
     client.sendMessage(number, message).then(response => {
         res.status(200).json({
